@@ -131,7 +131,7 @@ export class DOMTestEvaluator implements TestEvaluator {
 
     this.#runTest = async function (rawTest: string): Promise<Fail | Pass> {
       this.#proxyConsole.on();
-      // @ts-expect-error I'm prototyping here, so I don't care about types.
+      // @ts-expect-error The proxy doesn't not fully implement the fetch API
       globalThis.fetch = createFetchProxy(parent);
 
       try {
@@ -162,7 +162,7 @@ ${test}`);
           // eslint-disable-next-line no-unsafe-finally
           return this.#createErrorResponse(afterEachErr as TestError);
         }
-        // Reset fetch to the original implementation
+
         globalThis.fetch = originalFetch;
       }
     };
